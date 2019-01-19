@@ -44,17 +44,20 @@ const typeDefs = `
 	 id: '1',
 	 title: "First Post",
 	 body: "First.",
-	 published: false
+	 published: false,
+	 author: '1'
  },{
 	id: '2',
 	title: "Second Post",
 	body: "Second.",
-	published: true
+	published: true,
+	author: '2'
  },{
 	id: '3',
 	title: "Third Post",
 	body: "Third.",
-	published: true
+	published: true,
+	author: '1'
  }]
 
 
@@ -93,7 +96,14 @@ const resolvers = {
 				body: 'This blog post is hella lame.',
 				published: false
 			}
-		},
+		}
+	},
+	Post: {
+		author(parent, args, ctx, info) {
+		return users.find((user) =>{
+				return user.id === parent.author
+			})
+		}
 	}
 }
 
