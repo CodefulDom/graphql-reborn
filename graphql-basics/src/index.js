@@ -9,6 +9,7 @@ const typeDefs = `
 		posts(query: String): [Post!]!
 		me: User!
 		post: Post!
+		comments: [Comment!]!
 	}
 
 	type User {
@@ -26,7 +27,25 @@ const typeDefs = `
 		published: Boolean!
 		author: User!
 	}
+
+	type Comment {
+		id: ID!
+		text: String!
+	}
  `
+	const comments = [{
+		id: '102',
+		text: 'This chicken taste like crap.'
+	},{
+		id: '201',
+		text: 'Where are my pants?'
+	},{
+		id: '103',
+		text: 'Why is it always so damn hot in here?'
+	},{
+		id: '203',
+		text: 'Love you, pops.'
+	}]
 
  const users = [{
 	 id: '1',
@@ -65,6 +84,9 @@ const typeDefs = `
 // Resolvers
 const resolvers = {
   Query: {
+		comments(parent, args, ctx, info) {
+			return comments
+		},
 		posts(parent, args, ctx, info) {
 			if (!args.query) {
 				return posts
